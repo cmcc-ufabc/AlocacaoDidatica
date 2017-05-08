@@ -106,6 +106,13 @@ body {
     border-color: greenyellow;
 }
 
+.blue-event, .blue-event .fc-event-skin, .blue-event a{
+    background-color: blue;
+    color: white;
+    border-color: blue;
+    font-weight: bold;
+}
+
 .brown-event, .brown-event .fc-event-skin, .brown-event a{
     background-color: brown;
     color: black;
@@ -154,8 +161,9 @@ padding: 10% 0;
 
 .darkgreen-event, .darkgreen-event .fc-event-skin, .darkgreen-event a{
     background-color: darkgreen;
-    color: black;
-    border-color: greenyellow;
+    color: white;
+    border-color: darkgreen;
+    font-weight: bold;
 }
 
 .darkmagenta-event, .darkmagenta-event .fc-event-skin, .darkmagenta-event a{
@@ -299,7 +307,7 @@ padding: 10% 0;
   
   .custom .ui-state-highlight {
     background: transparent !important;
-    border: transparent !important;
+    border: darkgray !important;
     
 }
 
