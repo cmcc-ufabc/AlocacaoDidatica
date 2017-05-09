@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
-
 @Stateless
 public class CreditoFacade extends AbstractFacade<Credito>{
     
@@ -27,9 +26,7 @@ public class CreditoFacade extends AbstractFacade<Credito>{
     
     //Retorna a quantidade de créditos do docente no quadrimestre passado como parâmetro
     public Credito creditoQuadrimestre(Docente docente, int quadrimestre){
-            
         try {
-
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Credito.class);
             criteria.add(Restrictions.eq("docente", docente));
