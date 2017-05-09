@@ -7,7 +7,6 @@
     <h:head>
         <title>Fase II</title>
         <meta name="viewport" content="width=device-width"/>
-        <link rel="icon" type="image/png" href="images/Icon_CMCC.png"/>
     </h:head>
     <h:body onload="#{turmaController.preecherSchedule()};#{loginBean.isLogado()}" >
         <h:outputStylesheet library="css" name="style.css" />
@@ -27,7 +26,8 @@
                             <h:commandLink value="Afinidades" style="color: #2E8B57"
                                            action="/Afinidades/DefinirAfinidade" immediate="true"/>
                                 
-                            <h:outputLabel value="Fase II" style="color: #2E8B57; font-size: 24px; position: relative; left: 50px;"/>
+                            <h:outputLabel value="Fase II - Escolha de Turmas" 
+                                           style="color: #2E8B57; font-size: 24px; position: relative; left: 50px;"/>
                             <h:outputText value="#{loginBean.username}" style="color: #2E8B57"/>
                             <h:commandLink value="Logout" style="color: #2E8B57"
                                            action="#{loginBean.doLogout()}" immediate="true"/>
