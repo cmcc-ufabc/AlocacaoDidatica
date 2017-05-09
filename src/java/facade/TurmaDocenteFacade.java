@@ -30,7 +30,6 @@ public class TurmaDocenteFacade extends AbstractFacade<TurmaDocente>{
     
     //Lista turmas do Docente
     public List<TurmaDocente> listTurmas(Long id){ 
-        
         Session session = getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(TurmaDocente.class);
         criteria.add(Restrictions.eq("idDocente", id));
