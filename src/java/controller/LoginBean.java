@@ -97,18 +97,6 @@ public class LoginBean implements Serializable {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-    
-    /*private String teste;
-    
-    public String getTeste(){
-        return teste;
-    }
-    
-    public void setTeste(String teste){
-        this.teste = teste;
-    }*/
-
-//    private String nome;
 
     //Realiza o login caso dê tudo certo 
     public void doLogin() {
@@ -126,7 +114,6 @@ public class LoginBean implements Serializable {
         DirContext ctx = ldap.authenticate(username, password);
 
         if (ctx != null) {           
-
             try {
                 Attributes attrs = ctx.getAttributes(ldap.makeDomainName(username));
 //                nome = (String) attrs.get("cn").get();
@@ -134,18 +121,9 @@ public class LoginBean implements Serializable {
             } catch (NamingException ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-//            if(usuario.getLogin().equals("elaine.konno")){
-//                loggedIn = true;
-//            }
 
             usuario = pessoaFacade.findByUsername(username);
             docente = docenteFacade.buscaDocente(usuario.getNome());
-            //docente = new Docente();
-            //docente.setNome("Erick");
-            //docente.setSiape("11111");
-            //docente.setAdm(true);
-            //teste = "teste";
 
             if (usuario != null) {
                 loggedIn = true;
@@ -159,7 +137,6 @@ public class LoginBean implements Serializable {
             loggedIn = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciais inválidas");
         }
-
         FacesContext.getCurrentInstance().addMessage(null, msg);
         context.addCallbackParam("loggedIn", loggedIn);
     }
@@ -181,11 +158,6 @@ public class LoginBean implements Serializable {
 
         usuario = pessoaFacade.findByUsername(username);
         docente = docenteFacade.buscaDocente(usuario.getNome());
-        //docente = new Docente();
-        //    docente.setNome("Erick");
-        //    docente.setSiape("11111");
-        //    docente.setAdm(true);
-        //    teste = "teste";
 
         if (usuario != null) {
             loggedIn = true;
@@ -227,24 +199,6 @@ public class LoginBean implements Serializable {
             else{
                 return "/ForaDoPeriodo";
             }
-            /*if(faseAtiva.get(0).isAfinidades() == true){
-                return "/Afinidades/DefinirAfinidade";
-            }
-            if(faseAtiva.get(0).isFase1_quad1() == true){
-                return "/Disponibilidade/FaseIQuad1.xhtml";
-            }
-            if(faseAtiva.get(0).isFase1_quad2() == true){
-                return "/Disponibilidade/FaseIQuad2.xhtml";
-            }
-            if(faseAtiva.get(0).isFase1_quad3() == true){
-                return "/Disponibilidade/FaseIQuad3.xhtml";
-            }
-            if(faseAtiva.get(0).isFase2() == true){
-                return "/Disponibilidade/FaseII.xhtml";
-            }*/
-            //else{
-                //return "/index";
-            //}
         }
         return "/login";
     }
@@ -326,9 +280,7 @@ public class LoginBean implements Serializable {
         }
 
         public String getUID(String nome) {
-
             DirContext contexto = getContextoLDAP();
-
             Attributes atributos = new BasicAttributes(true);
             atributos.put(new BasicAttribute("displayName", nome));
 //            String filter = "cn=" + nome;
