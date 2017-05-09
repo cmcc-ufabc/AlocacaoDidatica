@@ -63,12 +63,6 @@ public class CreditoController extends Filtros implements Serializable{
         
         return credito;        
     }
-        
-//        public void adicionaCredito(OfertaDisciplina oferta){
-//            
-//            quantidade += oferta.getT();
-//            
-//        }
 
     //Soma créditos para o docente
     public void adicionaCredito(SelectEvent event) {
@@ -84,7 +78,6 @@ public class CreditoController extends Filtros implements Serializable{
             default:
                 quantidade += oferta.getT() + oferta.getP();
         }
-
     }
        
     //Reduz créditos para o docente
