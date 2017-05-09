@@ -28,7 +28,6 @@ public class DispFacade extends AbstractFacade<Disp>{
     
     @Override
     protected SessionFactory getSessionFactory() {
-
         return HibernateUtil.getSessionFactory();
     }
     
@@ -40,7 +39,6 @@ public class DispFacade extends AbstractFacade<Disp>{
      * parametro informado
      */
     public List<Disp> findByDocente(Pessoa docente) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disp.class);
@@ -64,7 +62,6 @@ public class DispFacade extends AbstractFacade<Disp>{
      * @return
      */
     public List<Disp> findByDocenteQuad(Pessoa docente, int quad) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disp.class);
@@ -91,12 +88,10 @@ public class DispFacade extends AbstractFacade<Disp>{
      * @return
      */
     public List<Disp> findByAreaQuad(List<String> areasAtuacao, int quad) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disp.class);
             List<Disp> disponibilidades = new ArrayList<>();
-
             if (quad != 0) {
                 if (areasAtuacao != null) {
                     for (String a : areasAtuacao) {
