@@ -25,7 +25,6 @@ public class FaseFacade extends AbstractFacade<Fase> {
 
     @Override
     protected SessionFactory getSessionFactory() {
-
         return HibernateUtil.getSessionFactory();
     }
 
@@ -35,10 +34,6 @@ public class FaseFacade extends AbstractFacade<Fase> {
             Session session = getSessionFactory().openSession();
             Fase result = (Fase) session.createCriteria(Fase.class)
                     .addOrder(Order.desc("id")).setMaxResults(1).uniqueResult();
-            /*Session session = getSessionFactory().openSession();
-             Query query = session.createQuery("Select * from Fase where id = ("
-             + "select max(id) from Fase)");
-             List<Fase> resultado = query.list();*/
             return result;
         } catch (HibernateException e) {
             return null;
