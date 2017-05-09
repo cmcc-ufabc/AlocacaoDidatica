@@ -64,7 +64,6 @@ public class PessoaController implements Serializable {
     }
 
     public Pessoa getPessoaSalvar() {
-
         if (pessoaSalvar == null) {
             pessoaSalvar = new Pessoa();
         }
@@ -98,9 +97,6 @@ public class PessoaController implements Serializable {
 
     public String prepareView() {
         pessoa = (Pessoa) pessoaDataModel.getRowData();
-        //pessoa= pessoaFacade.find(pessoa.getID());
-        //pessoaFacade.edit(pessoaFacade.find(pessoa.getID()));
-        //pessoaFacade.edit(pessoa);
         return "View";
     }
 
@@ -109,11 +105,9 @@ public class PessoaController implements Serializable {
 
     //Carrega o lazymodel Pessoa
     public PessoaLazyModel getPessoaLazyModel() {
-
         if (pessoaDataModel == null) {
             pessoaDataModel = new PessoaLazyModel(this.listarTodas());
         }
-
         return this.pessoaDataModel;
     }
 
@@ -122,7 +116,6 @@ public class PessoaController implements Serializable {
 
     //Carrega o lazymodel ADM
     public PessoaLazyModel getAdmLazyModel() {
-
         if (admLazyModel == null) {
             admLazyModel = new PessoaLazyModel(pessoaFacade.listAdms());
         }
@@ -144,7 +137,6 @@ public class PessoaController implements Serializable {
 
     //Cria uma nova pessoa
     public void salvarNoBanco() {
-
         try {
             pessoaFacade.save(pessoa);
             JsfUtil.addSuccessMessage("Pessoa " + pessoa.getNome() + " criado com sucesso!");
@@ -167,7 +159,6 @@ public class PessoaController implements Serializable {
             JsfUtil.addSuccessMessage("Docente " + pessoaSalvar.getNome() + " cadastrado com sucesso!");
             pessoaSalvar = null;
             pessoaDataModel = null;
-
         } catch (Exception e) {
             JsfUtil.addErrorMessage("Não foi possível cadastrar o docente");
         }
@@ -195,13 +186,11 @@ public class PessoaController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, "Ocorreu um erro de persistência");
         }
-
         recriarModelo();
     }
 
     //Salva um novo adm
     public void salvarAdm() {
-
         try {
             adm.setAdm(true);
             pessoaFacade.edit(adm);
@@ -215,7 +204,6 @@ public class PessoaController implements Serializable {
 
     //Remove um adm
     public void removerAdm() {
-
         pessoa = (Pessoa) admLazyModel.getRowData();
         try {
             pessoa.setAdm(false);
@@ -240,40 +228,26 @@ public class PessoaController implements Serializable {
     //Cadastro-------------------------------------------------------------------------------------------
     //Faz o cadastro de pessoas
     public void cadastrarPessoas() {
-
         String[] palavras;
-
         try {
-
             FileReader arq = new FileReader("/home/charles/NetBeansProjects/Arquivos CSV/docentes.csv");
-
             BufferedReader lerArq = new BufferedReader(arq);
-
             String linha = lerArq.readLine(); //cabeçalho
             // lê a primeira linha 
             // a variável "linha" recebe o valor "null" quando o processo 
             // de repetição atingir o final do arquivo texto 
-
             linha = lerArq.readLine();
-
 //            linha = linha.replaceAll("\"", "");
             while (linha != null) {
-
                 linha = linha.replaceAll("\"", "");
-
                 palavras = linha.split(",");
-
                 List<Pessoa> pessoas = pessoaFacade.findByName(trataNome(palavras[1]));
-
                 if (pessoas.isEmpty()) {
-
                     Pessoa p = new Pessoa();
-
                     p.setNome(trataNome(palavras[1]));
                     p.setSiape(palavras[2]);
                     p.setEmail(palavras[3]);
                     p.setCentro(palavras[4]);
-
                     pessoaFacade.save(p);
                 }
                 linha = lerArq.readLine();
@@ -288,12 +262,9 @@ public class PessoaController implements Serializable {
 
     //Faz o tratamento dos nomes
     private String trataNome(String nome) {
-
         String retorno = "";
         String[] palavras = nome.split(" ");
-
         for (String p : palavras) {
-
             if (p.equals("DAS") || p.equals("DOS") || p.length() <= 2) {
                 p = p.toLowerCase();
                 retorno += p + " ";
@@ -307,12 +278,9 @@ public class PessoaController implements Serializable {
 
     //AutoComplete----------------------------------------------------------------------------------------
     public List<Pessoa> completePessoa(String query) {
-
         query = query.toLowerCase();
-
         List<Pessoa> allPessoas = this.listarTodas();
         List<Pessoa> filteredPessoas = new ArrayList<>();
-
         for (Pessoa p : allPessoas) {
             if (p.getNome().toLowerCase().startsWith(query)) {
                 filteredPessoas.add(p);
@@ -323,16 +291,12 @@ public class PessoaController implements Serializable {
 
     //Centro--------------------------------------------------------------------------------------------
     public List<String> completeCentro(String query) {
-
         query = query.toLowerCase();
-
         List<String> centros = new ArrayList<>();
         centros.add("CCNH");
         centros.add("CECS");
         centros.add("CMCC");
-
         List<String> filteredCentros = new ArrayList<>();
-
         for (String c : centros) {
             if (c.toLowerCase().startsWith(query)) {
                 filteredCentros.add(c);
