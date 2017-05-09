@@ -281,16 +281,33 @@ public class DisponibilidadeController extends Filtros implements Serializable {
     
     //Método para salvar a preferência marcada pelo docente sobre a configuração de horários desejada
     public void salvaPreferencias(){
-        Preferencias preferencia = new Preferencias();
-        preferencia.setPreferenciaHorarios(preferencias);
+        Preferencias preferencia = preferenciaFacade.verificaPreferencia(pessoa.getID(), quadrimestre);
+        if(preferencia.getID() != null){
+            preferencias = preferencia.getPreferenciaHorarios();
+            informacoes = preferencia.getObservacoes();
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Warning", "Já existe um registro com as suas preferências!"));
+        } else{
+            preferencia.setPreferenciaHorarios(preferencias);
+            preferencia.setObservacoes(informacoes);
+            preferencia.setQuadrimestre(quadrimestre);
+            preferencia.setPessoa_id(pessoa.getID());
+            preferenciaFacade.save(preferencia);
+
+            informacoes = null;
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Informações salvas com Sucesso!"));
+        }
+    }
+    
+    //Método para editar as informações já salvas pelo docente
+    public void editarPreferencias(){
+        Preferencias preferencia = preferenciaFacade.verificaPreferencia(pessoa.getID(), quadrimestre);
         preferencia.setObservacoes(informacoes);
-        preferencia.setQuadrimestre(quadrimestre);
-        preferencia.setPessoa_id(pessoa.getID());
-        preferenciaFacade.save(preferencia);
-        
-        informacoes = null;
+        preferencia.setPreferenciaHorarios(preferencias);
+        preferenciaFacade.merge(preferencia);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Informações salvas com Sucesso!"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Informações alteradas com Sucesso!"));
     }
 
     private List<OfertaDisciplina> ofertasEtapa1;
