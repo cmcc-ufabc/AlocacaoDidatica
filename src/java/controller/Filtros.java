@@ -17,10 +17,6 @@ public class Filtros {
     
     @EJB
     private DisciplinaFacade disciplinaFacade;
-    
-//    protected abstract void filtrar();
-//    
-//    protected abstract void limparFiltro();
 
     //------------------------------Filtros de Disciplina-----------------------------------------------
     
@@ -28,7 +24,6 @@ public class Filtros {
     private List<String> filtrosEixos;
     
     public List<String> getFiltrosEixos() {
-        
         filtrosEixos = new ArrayList<>();
         filtrosEixos.add("Ciencia, Tecnologia e Inovacao");
         filtrosEixos.add("Comunicacao e Informacao");
@@ -166,7 +161,6 @@ public class Filtros {
 
     //Filtra os docentes de acordo com as áreas de atuação
     public List<Docente> filtrarDocente(DocenteDataModel docenteDataModel, DocenteFacade docenteFacade) {
-
         if (!filtrosSelecAreaAtuacao.isEmpty()) {
             List<Docente> docentesFiltrados = docenteFacade.findByArea(filtrosSelecAreaAtuacao);
 
@@ -180,7 +174,6 @@ public class Filtros {
     
     //Limpa os filtros dos docentes selecionados
     public void limparFiltroDocente(){
-     
         filtrosSelecAreaAtuacao = null;
         filtrosSelecCentros = null;  
     }
@@ -189,9 +182,7 @@ public class Filtros {
   
 //Disciplina----------------------------------------------------------------------------------------------------------    
     public List<Disciplina> completeDisciplina(String query) {
-        
         query = query.toLowerCase();
-        
         List<Disciplina> allDisciplinas = disciplinaFacade.findAll();
         List<Disciplina> filteredDisciplinas = new ArrayList<>();
 
@@ -205,9 +196,7 @@ public class Filtros {
     
  //Eixo----------------------------------------------------------------------------------------------------------
     public List<String> completeEixo(String query){
-        
         query = query.toLowerCase();
-        
         List<String> filteredEixos = new ArrayList<>();
 
         for (String e : this.getFiltrosEixos()) {
@@ -220,9 +209,7 @@ public class Filtros {
     
     //Curso-----------------------------------------------------------------------------------------------
     public List<String> completeCurso(String query){
-        
         query = query.toLowerCase();
-        
         List<String> filteredCursos = new ArrayList<>();
 
         for (String c : this.getFiltrosCursos()) {
@@ -236,9 +223,7 @@ public class Filtros {
     //Área de atuação do docente------------------------------------------------------------------------
     
     public List<String> completeArea(String query){
-        
         query = query.toLowerCase();
-
         List<String> filteredAreas = new ArrayList<>();
 
         for (String a : this.getFiltrosAreaAtuacao()) {
