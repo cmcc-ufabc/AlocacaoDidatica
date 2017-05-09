@@ -57,15 +57,11 @@ public class DocenteFacade extends AbstractFacade<Docente>{
      * @return lista de docentes de acordo com os critérios fornecidos
      */
     public List<Docente> findByCentroArea(List<String> centros, List<String> areas) {
-
         List<Docente> docentes = new ArrayList<>();
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Docente.class);
-
             if (!centros.isEmpty()) {
-
                 if (!areas.isEmpty()) {
                     for (String centro : centros) {
                         for (String area : areas) {
@@ -109,9 +105,7 @@ public class DocenteFacade extends AbstractFacade<Docente>{
      * @return lista de docentes de acordo com os critérios especificados
      */
     public List<Docente> findByArea(List<String> areas) {
-
         List<Docente> docentes = new ArrayList<>();
-        
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Docente.class);
