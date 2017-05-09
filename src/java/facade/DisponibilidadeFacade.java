@@ -34,7 +34,6 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
      * parametro informado
      */
     public List<Disponibilidade> findByDocente(Pessoa docente) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disponibilidade.class);
@@ -58,7 +57,6 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
      * @return
      */
     public List<Disponibilidade> findByDocenteQuad(Pessoa docente, int quad) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disponibilidade.class);
@@ -85,12 +83,10 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
      * @return
      */
     public List<Disponibilidade> findByAreaQuad(List<String> areasAtuacao, int quad) {
-
         try {
             Session session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Disponibilidade.class);
             List<Disponibilidade> disponibilidades = new ArrayList<>();
-
             if (quad != 0) {
                 if (areasAtuacao != null) {
                     for (String a : areasAtuacao) {
@@ -129,7 +125,6 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
             Session session = getSessionFactory().openSession();
             Criteria crit = session.createCriteria(Disponibilidade.class);
             if (disciplina != null) {
-
                 if (quadrimestre != 0) {
                     crit.add(Restrictions.eq("quadrimestre", quadrimestre));
                 }
@@ -152,7 +147,6 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
                     crit.add(Restrictions.eq("t.turno", turno));
                 }
             }
-
             crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             List result = crit.list();
             return result;
@@ -163,7 +157,6 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
 
     //Busca a disponibilidade por pessoa
     public Disponibilidade FindDisponibilidade(Long oferta, Pessoa pessoa) {
-        
         Session session = getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Disponibilidade.class);
         criteria.createAlias("ofertaDisciplina", "o").add(Restrictions.eq("o.ID", oferta));
@@ -171,83 +164,7 @@ public class DisponibilidadeFacade extends AbstractFacade<Disponibilidade> {
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         
         List<Disponibilidade> result = criteria.list();
-        
         session.close();
-        
         return result.get(0);
-
-        /*Session session = getSessionFactory().openSession();
-         Criteria criteria = session.createCriteria(Disponibilidade.class);
-         String ordem = "2";
-         criteria.add(Restrictions.eq("ordemPreferencia", ordem));
-         List<Disponibilidade> result = criteria.list();
-         Disponibilidade d = (Disponibilidade) result.get(0);
-         session.close();*/
-        //criteria.add(Restrictions.eq("pessoaId", pessoa));
-        //criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        //Disponibilidade d = result.get(0);
-        /*try {
-            session = getSessionFactory().openSession();
-            Query query = session.createQuery("delete from Disponibilidade where ofertaDisciplina_ID = :oferta and pessoa_pessoa_id = :pessoa");
-            query.setParameter("ofertaDisciplina_ID", oferta);
-            query.setParameter("pessoa_pessoa_id", pessoa);
-            //List<Disponibilidade> resultado = query.list();
-            return d;
-        } catch (HibernateException e) {
-            return null;
-        }*/
     }
-
-    //    /**
-//     * Retorna a lista de disponibilidade de acordo com a disciplina pesquisada
-//     * @param disciplina
-//     * @param campus string opcional
-//     * @param turno string opcional
-//     * @return lista de disponibilidades de acordo com os filtros
-//     */
-//    public List<Disponibilidade> findByDiscTurCam(Disciplina disciplina, String campus, String turno){
-//        
-//        try{
-//            
-//            Session session = getSessionFactory().openSession();
-//            Criteria crit = session.createCriteria(Disponibilidade.class);
-//            
-//            if(disciplina != null){
-//                
-//                crit.createAlias("turma", "t").add(Restrictions.eq("t.disciplina", disciplina));
-//                
-//                if(!campus.equals("")){
-//                    crit.add(Restrictions.eq("t.campus", campus));
-//                }
-//                
-//                if(!turno.equals("")){
-//                    crit.add(Restrictions.eq("t.turno", turno));
-//                }
-//                
-//                
-//            }
-//            else{
-//                
-//                crit.createAlias("turma", "t");
-//                
-//                if(!campus.equals("")){
-//                    crit.add(Restrictions.eq("t.campus", campus));
-//                }
-//                
-//                if(!turno.equals("")){
-//                    crit.add(Restrictions.eq("t.turno", turno));
-//                }
-//            }
-//            
-//            crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//            List result = crit.list();
-//            return result;
-//            
-//        }
-//        catch(HibernateException e){
-//            return null;
-//        }
-//
-//        
-//    }
 }
