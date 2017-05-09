@@ -62,65 +62,6 @@ public class TurmaController implements Serializable {
     private DispFacade dispFacade;
 
     //Cadastro-------------------------------------------------------------------------------------------
-    /*public void cadastrarTurmas() {
-
-     String[] palavras;
-
-     try {
-
-     try (BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("/home/charles/alocacao/Arquivos Alocação/Arquivos CSV/turmas.csv"), "UTF-8"))) {
-     String linha = lerArq.readLine();
-
-     while (linha != null) {
-
-     linha = linha.replaceAll("\"", "");
-
-     palavras = linha.split(";", -1);
-
-     Turma t = new Turma();
-
-     String codigo = palavras[2];
-     String nome = palavras[4];
-
-     Disciplina d = disciplinaFacade.findByCodOrName(codigo, nome);
-
-     t.setDisciplina(d);
-
-     palavras[18] = palavras[18].replaceAll(" ,", ",");
-     palavras[18] = palavras[18].replaceAll("\"", "");
-     String[] horariosCompletos = palavras[18]
-     .trim().split("(?<=semanal,)|(?<=quinzenal I)|(?<=quinzenal II)");
-
-     List<Horario> horarios = new ArrayList<Horario>();
-
-     for (String horarioCompleto : horariosCompletos) {
-
-     horarioCompleto = horarioCompleto.trim();
-     String[] partes = horarioCompleto.split("das|,");
-     Horario h = new Horario();
-     h.setDia(partes[0]);
-     h.setHora(partes[1]);
-     h.setSala(partes[2]);
-     h.setPeriodicidade(partes[3]);
-
-     horarios.add(h);
-
-     }
-
-     t.setHorarios(horarios);
-     turmaFacade.save(t);
-
-     linha = lerArq.readLine();
-
-     //                linha = linha.replaceAll("\"", "");
-     }
-     } //cabeçalho
-
-     } catch (IOException e) {
-     System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
-     }
-
-     }*/
     //Método de cadastro com novo arquivo (A ser difinido como olficial)
     //obs: ao apagar as turmas acontecem problemas para carregar a fase 2 devido à consulta por idTurma nas escolhas 
     //dos docentes, por isso é preciso apagar as escolhas dos docentes primeiro
@@ -271,23 +212,7 @@ public class TurmaController implements Serializable {
     }
 
     //DataModel e LazyModel ---------------------------------------------------------------------------------
-    /*private TurmaDataModel turmaDataModel; // Não está mais sendo usado para a lista de turmas na Fase 2
-
-     public TurmaDataModel getTurmaDataModel() {
-
-     if (turmaDataModel == null) {
-
-     List<Turma> turmas = turmaFacade.findAll();
-     turmaDataModel = new TurmaDataModel(turmas);
-
-     }
-
-     return turmaDataModel;
-     }
-
-     public void setTurmaDataModel(TurmaDataModel turmaDataModel) {
-     this.turmaDataModel = turmaDataModel;
-     }*/
+    
     private TurmaLazyModel turmalazymodel; //LazyModel para página de Cadastro e Turmas da Fase 2
 
     public TurmaLazyModel getTurmalazymodel() {
@@ -522,20 +447,7 @@ public class TurmaController implements Serializable {
         Turma t = (Turma) event.getObject();
         atual.add(t);
 
-        //getTeste();
         getDocenteSchedule();
-
-        /*aux = event; //Atribui a aux a turma selecionada para ser usada por outros metodos
-         turmasSchedule.clear();
-         //teste = null;
-         //List<Turma> atual = new ArrayList();
-         //docenteSchedule.clear();
-         Turma t = (Turma) event.getObject();
-         //atual.add(t);
-         //preencheDocente(atual);
-         //getTeste();
-         preencherTurma(t);
-         //preecherSchedule();*/
     }
 
     public void onRowUnselect(UnselectEvent event) {
@@ -543,20 +455,9 @@ public class TurmaController implements Serializable {
         //getTeste();
         atual = null;
     }
-
-    //Mostrará as turmas da disciplina selecionada
-    //private ScheduleModel turmasSchedule;
     
     //Mostrará as turmas já selecionadas pelo docente
     private ScheduleModel docenteSchedule;
-
-    /*public ScheduleModel getTurmasSchedule() {
-     return turmasSchedule;
-     }
-
-     public void setTurmasSchedule(ScheduleModel turmasSchedule) {
-     this.turmasSchedule = turmasSchedule;
-     }*/
     
     //Preenche o Schedule
     public ScheduleModel getDocenteSchedule() {
@@ -648,9 +549,6 @@ public class TurmaController implements Serializable {
 
     public void onRowSelect2(SelectEvent event) {
         aux2 = event; //Atribui a aux a turma selecionada para ser usada por outros métodos
-        /*turmasSchedule.clear();
-         Turma t = (Turma) event.getObject();
-         preencherTurma(t);*/
     }
 
     public void onRowUnselect2(UnselectEvent event) {
@@ -679,25 +577,6 @@ public class TurmaController implements Serializable {
         atual = null;
         //getTeste();
         getDocenteSchedule();
-        /*docenteSchedule.clear();
-         List<TurmaDocente> requisicoes = new ArrayList<TurmaDocente>();
-         List<Turma> escolhidas = new ArrayList<Turma>();
-         Turma t;
-         Long id = docente.getID();
-         //Cria a lista de todas as requisições de turma
-         //if (requisicoes == null) {
-         requisicoes = turmasEscolhidasFacade.listTurmas(id);
-         //}
-         //Cria a lista das solicitações do docente atual
-         for (TurmaDocente atual : requisicoes) {
-         //if (atual.getIdDocente() == docente.getID()) {
-         t = turmaFacade.find(atual.getIdTurma());
-         escolhidas.add(t);
-         //}
-         }
-         requisicoes = null;
-         //Método para preencher o Schedule do Docente
-         //preencherRequisicoes(escolhidas);*/
     }
 
     private static SelectEvent aux;
@@ -732,130 +611,6 @@ public class TurmaController implements Serializable {
         valor = "nao";
         planejadas = "nao";
     }
-
-    /*public void preencherTurma(Turma turma) {
-
-     List<Horario> horarios = turma.getHorarios();
-
-     for (Horario h : horarios) {
-
-     int dia = conversorDia(h.getDia());
-
-     String hora = h.getHora().trim();
-     int horaInicio = Integer.parseInt(hora.substring(0, 2));
-     int minutoInicio = Integer.parseInt(hora.substring(3, 5));
-
-     int horaFim = Integer.parseInt(hora.substring(9, 11));
-     int minutoFim = Integer.parseInt(hora.substring(12, 14));
-
-     //Inicio do horario
-     Calendar inicio = Calendar.getInstance();
-     inicio.set(Calendar.DAY_OF_WEEK, dia);
-     if (horaInicio > 12) {
-     inicio.set(Calendar.AM_PM, Calendar.PM);
-     inicio.set(Calendar.HOUR, horaInicio - 12);
-
-     } else {
-     inicio.set(Calendar.AM_PM, Calendar.AM);
-     inicio.set(Calendar.HOUR, horaInicio);
-     }
-     inicio.set(Calendar.MINUTE, minutoInicio);
-
-     //Fim do horario
-     Calendar fim = Calendar.getInstance();
-     fim.set(Calendar.DAY_OF_WEEK, dia);
-     if (horaFim > 12) {
-     fim.set(Calendar.AM_PM, Calendar.PM);
-     fim.set(Calendar.HOUR, horaFim - 12);
-
-     } else {
-     fim.set(Calendar.AM_PM, Calendar.AM);
-     fim.set(Calendar.HOUR, horaFim);
-     }
-     fim.set(Calendar.MINUTE, minutoFim);
-
-     String sigla = converterSigla(turma);
-
-     //turmasSchedule.addEvent(new DefaultScheduleEvent(sigla, inicio.getTime(), fim.getTime()));
-     DefaultScheduleEvent t = new DefaultScheduleEvent(sigla, inicio.getTime(), fim.getTime(), "blue-event");
-     turmasSchedule.addEvent(t);
-     //docenteSchedule.addEvent(t);
-
-     }
-
-     }*/
-    //Salva solicitacoes no banco
-    /*public void preencherRequisicoes(List<Turma> turma) {
-     //List<Horario> horarios = new ArrayList<Horario>();
-     for (Turma t : turma) {
-     List<Horario> horarios = t.getHorarios();
-     for (Horario h : horarios) {
-     int dia = conversorDia(h.getDia());
-
-     String hora = h.getHora().trim();
-     int horaInicio = Integer.parseInt(hora.substring(0, 2));
-     int minutoInicio = Integer.parseInt(hora.substring(3, 5));
-
-     int horaFim = Integer.parseInt(hora.substring(9, 11));
-     int minutoFim = Integer.parseInt(hora.substring(12, 14));
-
-     //Inicio do horario
-     Calendar inicio = Calendar.getInstance();
-     inicio.set(Calendar.DAY_OF_WEEK, dia);
-     if (horaInicio > 12) {
-     inicio.set(Calendar.AM_PM, Calendar.PM);
-     inicio.set(Calendar.HOUR, horaInicio - 12);
-
-     } else {
-     inicio.set(Calendar.AM_PM, Calendar.AM);
-     inicio.set(Calendar.HOUR, horaInicio);
-     }
-     inicio.set(Calendar.MINUTE, minutoInicio);
-
-     //Fim do horario
-     Calendar fim = Calendar.getInstance();
-     fim.set(Calendar.DAY_OF_WEEK, dia);
-     if (horaFim > 12) {
-     fim.set(Calendar.AM_PM, Calendar.PM);
-     fim.set(Calendar.HOUR, horaFim - 12);
-
-     } else {
-     fim.set(Calendar.AM_PM, Calendar.AM);
-     fim.set(Calendar.HOUR, horaFim);
-     }
-     fim.set(Calendar.MINUTE, minutoFim);
-
-     String sigla = converterSigla(t);
-     //Preenche o Schdule do Docente
-     //docenteSchedule.addEvent(new DefaultScheduleEvent(sigla, inicio.getTime(), fim.getTime()));
-     DefaultScheduleEvent schedule = new DefaultScheduleEvent(sigla, inicio.getTime(), fim.getTime(), "darkgreen-event");
-     docenteSchedule.addEvent(schedule);
-     }
-     }
-     //eventoTurma();
-     //docenteSchedule.addEvent(novo);
-     }*/
-    /*private ScheduleModel teste;
-    
-     public ScheduleModel getTeste(){
-     teste = new DefaultScheduleModel();
-     List<TurmaDocente> requisicoes = new ArrayList<TurmaDocente>();
-     List<Turma> escolhidas = new ArrayList<Turma>();
-     Turma t;
-     Long id = docente.getID();
-
-     requisicoes = turmasEscolhidasFacade.listTurmas(id);
-     for (TurmaDocente td : requisicoes) {
-     t = turmaFacade.find(td.getIdTurma());
-     escolhidas.add(t);
-     }
-     preencheDocente(escolhidas);        
-     return teste;
-     }
-    
-     public void setTeste(ScheduleModel teste){
-     this.teste = teste;
-     }*/
     
     //Método que busca as turmas já salvas para preencher o Schedule
     public void preencheDocente(List<Turma> turma) {
@@ -950,7 +705,6 @@ public class TurmaController implements Serializable {
 
     //Método para converter o dia para Calendar
     private int conversorDia(String dia) {
-
         dia = dia.trim();
         switch (dia) {
             case "segunda":
