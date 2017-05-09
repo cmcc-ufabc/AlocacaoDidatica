@@ -35,7 +35,6 @@ import model.Pessoa;
 public class AfinidadeController extends Filtros implements Serializable{
     
     private static final long serialVersionUID = 1L;
-    //private ExternalContext externalContext;
    
     @ManagedProperty(value="#{loginBean}")
     private LoginBean loginBean;
@@ -50,23 +49,7 @@ public class AfinidadeController extends Filtros implements Serializable{
     
     public AfinidadeController() {
         //docente = LoginBean.getUsuario(); //Pega o usuário pelo login
-        //externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        //Map<String, Object> sessionMap = externalContext.getSessionMap();
-        //Object o = sessionMap.get("org.jboss.weld.context.http.HttpSessionContext#org.jboss.weld.bean-Alocacao3.war/content/Alocacao3.war/WEB-INF/classes-ManagedBean-class controller.LoginBean");
-        //String s = o.getClass().getName();
-        //docente = loginBean.getDocente();
-        //String d = docente.getNome();
-        //String n = docente.getNome();
-        //String teste = "";
-        //System.out.println("Passou por aqui");
     }
-    
-    /*@PostConstruct
-    public void init(){
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //loginBean = (LoginBean)context.getApplication().evaluateExpressionGet(context, "#{loginBean}", LoginBean.class);
-        //docente = loginBean.getDocente();
-    }*/
     
     @EJB
     private AfinidadeFacade afinidadeFacade;
@@ -111,13 +94,9 @@ public class AfinidadeController extends Filtros implements Serializable{
      */
     public List<Disciplina> getDisponiveis() {
         docente = loginBean.getDocente();
-        Pessoa p = loginBean.getUsuario();
-        //String teste = loginBean.getTeste();
+        //Pessoa p = loginBean.getUsuario();
 
         if (disponiveis == null) {
-            //Usuário que fez o logon
-            //docente = LoginBean.getUsuario();
-
             //Todas as afinidades do usuario
             todasAfinidades = new ArrayList(docente.getAfinidades());
             escolhidas = new ArrayList<>();
@@ -217,8 +196,6 @@ public class AfinidadeController extends Filtros implements Serializable{
             disponiveis.remove(t);
         }
         Collections.sort(disponiveis);
-        //super.setFiltrosSelecEixos(null);
-        //super.setFiltrosSelecCursos(null);
     }
       
     /**
@@ -280,14 +257,6 @@ public class AfinidadeController extends Filtros implements Serializable{
     public void setAfinidade(Afinidade afinidade) {
         this.afinidade = afinidade;
     }
-    
-    /*public Pessoa getPessoa() {
-        return docente;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        //this.docente = pessoa;
-    }*/
     
     public Disciplina getParaAdicionar() {
         return paraAdicionar;
