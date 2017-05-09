@@ -63,5 +63,4 @@ public class TurmaFacade extends AbstractFacade<Turma> {
             return null;
         }
     }
-    //Método para criar lista de horários com base no ID da turma para visualizar no cadastro
 }
