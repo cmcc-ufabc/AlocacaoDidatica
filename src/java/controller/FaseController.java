@@ -57,7 +57,6 @@ public class FaseController implements Serializable {
 
     //Padronizar o formato da data
     private Date formData(Date dataAtual) {
-
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         String mysqlDateString = formatter.format(dataAtual);
@@ -66,7 +65,6 @@ public class FaseController implements Serializable {
         } catch (ParseException ex) {
             Logger.getLogger(Fase.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return dataAtual;
     }
 
@@ -139,9 +137,7 @@ public class FaseController implements Serializable {
         this.Verifica();
 
         if ((afinidades) || !("".equals(opt))) {
-
             this.faseFacade.save(this.fase);
-
             if (afinidades && ("".equals(opt))) {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Afinidades habilitada!");
                 RequestContext.getCurrentInstance().showMessageInDialog(message);
