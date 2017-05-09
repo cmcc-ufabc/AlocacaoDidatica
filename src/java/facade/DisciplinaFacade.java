@@ -26,7 +26,6 @@ public class DisciplinaFacade extends AbstractFacade<Disciplina> {
     
     //Busca a lista de afinidades da disciplina
     public Disciplina inicializarColecaoAfinidades(Disciplina d) {
-
         Session session = getSessionFactory().openSession();
         session.refresh(d);
         Hibernate.initialize(d);
@@ -59,7 +58,6 @@ public class DisciplinaFacade extends AbstractFacade<Disciplina> {
      * @return Objeto Disciplina ou null
      */
     public Disciplina findByCodOrName(String codigo, String nome){
-        
         Session session = getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Disciplina.class);
         criteria.add(Restrictions.or(Restrictions.eq("codigo", codigo), Restrictions.eq("nome", nome)));
@@ -81,29 +79,19 @@ public class DisciplinaFacade extends AbstractFacade<Disciplina> {
      * @return lista de Disciplina
      */
     public List<Disciplina> findByEixoCurso(List<String> eixos, List<String> cursos) {
-
         List<Disciplina> disciplinas = new ArrayList<>();
-
         try {
             Session session = getSessionFactory().openSession();
-
             if (!eixos.isEmpty()) {
-
                 for (String eixo : eixos) {
-                    
                     Criteria criteria = session.createCriteria(Disciplina.class);
                     criteria.add(Restrictions.eq("eixo", eixo));
                     List<Disciplina> resultado = criteria.list();
-                    disciplinas.addAll(resultado);             
-//                    Query query = session.createQuery("from Disciplina d where d.eixo = :eixo ");
-//                    query.setParameter("eixo", eixo);
-//                    List resultado = query.list();              
+                    disciplinas.addAll(resultado);                          
                 }
             }
             if (!cursos.isEmpty()) {
-
                 for (String curso : cursos) {
-                    
                     Criteria criteria = session.createCriteria(Disciplina.class);
                     criteria.add(Restrictions.eq("curso", curso));
                     List<Disciplina> resultado = criteria.list();
