@@ -40,7 +40,8 @@ public class PreferenciasFacade extends AbstractFacade<Preferencias> {
         if(results.size()>0){
             return results.get(0);
         } else{
-            return null;
+            Preferencias p = new Preferencias();
+            return p;
         }
     }
     
