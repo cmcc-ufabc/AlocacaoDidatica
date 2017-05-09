@@ -48,7 +48,6 @@ public class PessoaFacade extends AbstractFacade<Pessoa> {
      * @return Um objeto Pessoa
      */
     public Pessoa findByUsername(String username) {
-
         try {
             username = username + "@%";
             Session session = getSessionFactory().openSession();
@@ -73,7 +72,6 @@ public class PessoaFacade extends AbstractFacade<Pessoa> {
      * @return Lista de usuarios administradores
      */
     public List<Pessoa> listAdms() {
-
         Session session = getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Pessoa.class);
         criteria.add(Restrictions.eq("adm", true));
@@ -90,7 +88,6 @@ public class PessoaFacade extends AbstractFacade<Pessoa> {
      * @return Lista de docentes
      */
     public List<Pessoa> listDocentes() {
-
         Session session = getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Pessoa.class);
         criteria.add(Restrictions.eq("class", "Docente"));
